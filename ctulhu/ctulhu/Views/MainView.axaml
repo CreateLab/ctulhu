@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ctulhu.ViewModels"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:views="clr-namespace:ctulhu.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ctulhu.Views.MainView"
+             x:DataType="vm:MainViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <controls:NavigationDrawer LeftDrawerOpened="{Binding ElementName=NavDrawerSwitch, Path=IsChecked, Mode=TwoWay}">
+        <controls:NavigationDrawer.LeftDrawerContent>
+            <ListBox SelectedIndex="{Binding SelectedIndex}">
+                <ListBoxItem>Home</ListBoxItem>
+                <ListBoxItem>Chat</ListBoxItem>
+            </ListBox>
+        </controls:NavigationDrawer.LeftDrawerContent>
+        <Grid RowDefinitions="Auto,*">
+            <ToggleButton Name="NavDrawerSwitch">Switch</ToggleButton>
+            <views:MainDetectiveControl Grid.Row="1" IsVisible="{Binding IsMainSelected}" />
+            <views:ChatControl Grid.Row="1" IsVisible="{Binding IsChatSelected}"></views:ChatControl>
+        </Grid>
+    </controls:NavigationDrawer>
+</UserControl>
